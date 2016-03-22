@@ -82,7 +82,7 @@ dequeueMsg = do
     liftIO . atomically $ do
         msgs <- readTVar queue
         case msgs of
-          (m:ms) -> do
+          (m:_) -> do
             modifyTVar' queue $ \q -> tail q
             return $ Just m
           _ -> return Nothing

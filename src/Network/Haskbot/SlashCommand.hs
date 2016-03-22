@@ -12,12 +12,10 @@ module Network.Haskbot.SlashCommand
 , fromParams
 ) where
 
-import Control.Applicative ((<$>), (<*>))
 import Data.Text (Text)
 import Network.Haskbot.Internal.Environment (HaskbotM)
 import Network.Haskbot.Internal.Request (Params, reqParam, optParam)
 import Network.Haskbot.Types
-import Network.Wai (Request)
 
 -- | Encapsulates all data provided by a request from a Slack /slash command/
 -- integration

@@ -24,7 +24,7 @@ import Network.Wai.Handler.Warp (run)
 webServer :: Config -> [Plugin] -> IO ()
 webServer config plugins = do
     env <- bootstrap config
-    forkIO $ sendResponsesToSlack env
+    _ <- forkIO $ sendResponsesToSlack env
     processSlackRequests env plugins
 
 -- private functions

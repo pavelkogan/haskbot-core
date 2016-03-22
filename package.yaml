@@ -27,6 +27,7 @@ github: pavelkogan/haskbot-core
 default-extensions:
   - OverloadedStrings
   - RecordWildCards
+ghc-options: -Wall
 dependencies:
   - aeson
   - base

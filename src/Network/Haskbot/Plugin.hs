@@ -47,7 +47,6 @@ module Network.Haskbot.Plugin
 , selectFrom
 ) where
 
-import Control.Monad.Reader (lift)
 import Data.List (find)
 import Data.Text (Text)
 import Network.Haskbot.Incoming (Incoming (Incoming), addToSendQueue)

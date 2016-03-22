@@ -2,8 +2,6 @@
 
 module Network.Haskbot.Plugin.Help (register) where
 
-import Control.Applicative ((<$>))
-import Data.List (find)
 import qualified Data.Text as T
 import Network.Haskbot.Plugin
 import Network.Haskbot.SlashCommand
@@ -39,7 +37,7 @@ handler plugins slashCom = return $ replyAsDM slashCom reply
 listAllText :: [Plugin] -> T.Text
 listAllText plugins =
   T.concat [ "Available commands: "
-           , T.intercalate ", " (map name plugins)
+           , T.intercalate ", " (map name' plugins)
            , ". To get help for a specific command, use `/haskbot [command]`."
            ]
-  where name p = T.concat ["`/", getCommand (plCommand p), "`"]
+  where name' p = T.concat ["`/", getCommand (plCommand p), "`"]
