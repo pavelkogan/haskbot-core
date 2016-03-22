@@ -15,3 +15,5 @@ cabal.sandbox.config
 
 # these can contain secret keys or other sensitive data
 src/Config.hs
+
+*.cabal

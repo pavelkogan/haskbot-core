@@ -1,0 +1,54 @@
+---
+name: haskbot-core
+version: "0.2"
+maintainer: Pavel Kogan <pkogan@gmail.com>
+
+license: MIT
+copyright:
+  - 2014 Jonathan Childress
+  - 2016 Pavel Kogan
+
+synopsis: Easily-extensible chatbot for Slack messaging service
+description: |
+  Haskbot melds together the Slack /slash command/ and /incoming/ API
+  integrations to create an easily-extensible platform for adding your own
+  custom /slash commands/ with arbitrary responses to your team's Slack
+  service.
+  .
+  Sure, Hubot exists, but when I desire custom chatbot functionality, I'd rather
+  write nice, clean Haskell than clunky Javascript any day of the week.
+
+stability:            volatile
+category:             Network
+extra-source-files:   README.md
+
+github: pavelkogan/haskbot-core
+
+default-extensions:
+  - OverloadedStrings
+  - RecordWildCards
+dependencies:
+  - aeson
+  - base
+  - bytestring
+  - connection
+  - containers
+  - http-conduit
+  - http-types
+  - monads-tf
+  - stm
+  - text
+  - wai
+  - warp
+
+library:
+  source-dirs: src
+
+tests:
+  spec:
+    source-dirs:
+      - src
+      - test
+    main: Spec.hs
+    dependencies:
+      - hspec
