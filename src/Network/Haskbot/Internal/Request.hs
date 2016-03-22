@@ -11,7 +11,7 @@ module Network.Haskbot.Internal.Request
 , reqParam
 ) where
 
-import Control.Monad.Error (liftIO, throwError)
+import Control.Monad.Except (liftIO, throwError)
 import Data.ByteString.Lazy (fromStrict)
 import Data.Text (Text)
 import Data.Text.Encoding (decodeUtf8)

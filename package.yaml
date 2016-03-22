@@ -35,9 +35,10 @@ dependencies:
   - containers
   - http-conduit
   - http-types
-  - monads-tf
+  - mtl
   - stm
   - text
+  - transformers
   - wai
   - warp
 

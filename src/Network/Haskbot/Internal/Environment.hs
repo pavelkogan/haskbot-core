@@ -8,15 +8,13 @@ module Network.Haskbot.Internal.Environment
 ) where
 
 import Control.Concurrent.STM.TVar (TVar, newTVarIO)
-import Control.Monad.Error (Error, ErrorT)
-import Control.Monad.Error.Class (noMsg, strMsg)
 import Control.Monad.Reader (ReaderT)
-import qualified Data.ByteString.Char8 as B8
+import Control.Monad.Except (ExceptT)
 import qualified Data.ByteString.Lazy as BL
 import qualified Network.Connection as N
 import Network.Haskbot.Config (Config)
 import qualified Network.HTTP.Conduit as N
-import Network.HTTP.Types (Status, internalServerError500, mkStatus)
+import Network.HTTP.Types (Status)
 
 data Environment = Environment { incQueue :: TVar [BL.ByteString]
                                , netConn  :: N.Manager
@@ -24,20 +22,15 @@ data Environment = Environment { incQueue :: TVar [BL.ByteString]
                                }
 
 type EnvironT m = ReaderT Environment m
-type HaskbotM   = EnvironT (ErrorT Status IO)
-
-instance Error Status where
-  noMsg  = internalServerError500
-  strMsg = mkStatus 500 . B8.pack
+type HaskbotM   = EnvironT (ExceptT Status IO)
 
 -- internal functions
 
 bootstrap :: Config -> IO Environment
-bootstrap configuration = do
+bootstrap config = do
   incQueue    <- newTVarIO []
   netConn     <- defNetConn >>= N.newManager
-  config      <- return configuration
-  return $ Environment {..}
+  return Environment{..}
 
 -- private functions
 

@@ -5,8 +5,9 @@ module Network.Haskbot.Internal.Server
 ) where
 
 import Control.Concurrent (forkIO)
-import Control.Monad.Error (runErrorT, throwError)
+import Control.Monad.Except (throwError)
 import Control.Monad.Reader (runReaderT)
+import Control.Monad.Trans.Except
 import Network.Haskbot.Config (Config, listenOn)
 import Network.Haskbot.Internal.Environment
   (Environment, HaskbotM, bootstrap, config)
@@ -39,7 +40,7 @@ processSlackRequests env plugins = run port app
 
 runner :: Environment -> [Plugin] -> Request -> IO Response
 runner env plugins req = do
-  ranOrFailed <- runErrorT $ runReaderT (pipeline plugins req) env
+  ranOrFailed <- runExceptT $ runReaderT (pipeline plugins req) env
   case ranOrFailed of
     Right _          -> return $ headOnly ok200
     Left errorStatus -> return $ headOnly errorStatus
